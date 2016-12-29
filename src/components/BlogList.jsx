@@ -3,10 +3,13 @@ import _ from 'lodash';
 
 import BlogItem from './BlogItem';
 
-const BlogList = ({ items }) => {
+const BlogList = ({ items, handleItemUpdate }) => {
   return DOM.ul(
     null,
-    _.map(items, item => React.createElement(BlogItem, { ...item, key: item.id })),
+    _.map(
+      items,
+      item => React.createElement(BlogItem, { ...item, key: item.id, handleItemUpdate }),
+    ),
   );
 };
 

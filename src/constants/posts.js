@@ -12,6 +12,7 @@ const blogPosts = [
       author: 'Hulk',
       createdAt: '2016-11-24 13:13:42',
       updatedAt: '2016-12-12 22:07:42',
+      likeCount: 1,
     },
   },
   {
@@ -26,6 +27,7 @@ const blogPosts = [
     meta: {
       createdAt: '2015-03-20 08:43:42',
       updatedAt: '2016-07-03 23:01:42',
+      likeCount: 42,
     },
   },
   {
