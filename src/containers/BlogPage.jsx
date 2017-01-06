@@ -13,9 +13,11 @@ class BlogPage extends Component {
 
     this.state = {
       blogItems: _.sortBy(blogItems, ({ meta }) => moment(meta.updatedAt)).reverse(),
+      showChart: true,
     };
 
     this.handleItemUpdate = this.handleItemUpdate.bind(this);
+    this.handleChartClose = this.handleChartClose.bind(this);
   }
 
   handleItemUpdate(updatedItem) {
@@ -24,6 +26,12 @@ class BlogPage extends Component {
 
     this.setState({
       blogItems: _.sortBy(updatedItems, ({ meta }) => moment(meta.updatedAt)).reverse(),
+    });
+  }
+
+  handleChartClose() {
+    this.setState({
+      showChart: !this.state.showChart,
     });
   }
 
@@ -41,7 +49,8 @@ class BlogPage extends Component {
           items={items}
           handleItemUpdate={this.handleItemUpdate}
         />
-        <PieChart items={chartItems} />
+        { this.state.showChart &&
+          <PieChart items={chartItems} handleChartClose={this.handleChartClose} /> }
       </div>
     );
   }

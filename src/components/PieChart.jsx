@@ -12,15 +12,24 @@ class PieChart extends Component {
     });
   }
 
+  componentWillUnmount() {
+    console.log('Doing some garbage collecting');
+    this.chart.destroy();
+  }
+
   render() {
     return (
-      <div id="pie-chart" ref={node => this.chartNode = node} />
+      <div>
+        <div id="pie-chart" ref={node => this.chartNode = node} />
+        <div id="close-button" onClick={this.props.handleChartClose}>&#10005;</div>
+      </div>
     );
   }
 }
 
 PieChart.propTypes = {
   items: PT.arrayOf(PT.array),
+  handleChartClose: PT.func,
 };
 
 export default PieChart;
