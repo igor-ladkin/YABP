@@ -15,6 +15,7 @@ const BlogList = ({ items, handleItemUpdate }) => {
 
 BlogList.propTypes = {
   items: PT.arrayOf(PT.shape(BlogItem.propTypes)),
+  handleItemUpdate: PT.func.isRequired,
 };
 
 export default BlogList;
