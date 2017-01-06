@@ -12,6 +12,12 @@ class PieChart extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.chart.load({
+      columns: nextProps.items,
+    });
+  }
+
   componentWillUnmount() {
     console.log('Doing some garbage collecting');
     this.chart.destroy();
