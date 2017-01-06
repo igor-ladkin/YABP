@@ -3,3 +3,15 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+#pie-chart {
+  position: fixed !important;
+  top: 50px;
+  right: 50px;
+
+  width: 300px;
+  height: 400px;
+
+  border: 1px solid black;
+  border-radius: 5px;
+}

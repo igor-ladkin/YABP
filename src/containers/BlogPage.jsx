@@ -5,6 +5,7 @@ import moment from 'moment';
 import blogItems from '../constants/posts';
 
 import BlogList from '../components/BlogList';
+import PieChart from '../components/PieChart';
 
 class BlogPage extends Component {
   constructor(props) {
@@ -28,9 +29,21 @@ class BlogPage extends Component {
 
   render() {
     const items = this.state.blogItems;
-    const handleItemUpdate = this.handleItemUpdate;
+    const chartItems =
+      _.chain(items)
+       .filter(({ meta }) => Number(meta.likeCount) > 0)
+       .map(({ text, meta }) => [text, Number(meta.likeCount)])
+       .value();
 
-    return React.createElement(BlogList, { items, handleItemUpdate });
+    return (
+      <div>
+        <BlogList
+          items={items}
+          handleItemUpdate={this.handleItemUpdate}
+        />
+        <PieChart items={chartItems} />
+      </div>
+    );
   }
 }
 
