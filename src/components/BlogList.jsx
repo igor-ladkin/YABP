@@ -14,7 +14,9 @@ const BlogList = ({ items, handleItemUpdate }) => {
 };
 
 BlogList.propTypes = {
-  items: PT.arrayOf(PT.shape(BlogItem.propTypes)),
+  items: PT.arrayOf(PT.shape(
+    _.pick(BlogItem.propTypes, ['id', 'image', 'text', 'meta']),
+  )),
   handleItemUpdate: PT.func.isRequired,
 };
 

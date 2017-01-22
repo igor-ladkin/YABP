@@ -38,7 +38,7 @@ BlogItem.propTypes = {
     ...MetaInfo.propTypes,
     likeCount: PT.number,
   }),
-  handleItemUpdate: PT.func,
+  handleItemUpdate: PT.func.isRequired,
 };
 
 export default BlogItem;
