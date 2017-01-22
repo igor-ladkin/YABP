@@ -1,0 +1,21 @@
+{
+  "name": "YABP",
+  "version": "1.0.0",
+  "description": "yet another blogging platform",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/thrasherDGK/YABP.git",
+    "type": "git"
+  },
+  "author": "Igor Ladkin <dgkplan@googlemail.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^3.14.0",
+    "eslint-config-airbnb": "^14.0.0",
+    "eslint-plugin-destructuring": "^2.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-react": "^6.9.0"
+  }
+}
