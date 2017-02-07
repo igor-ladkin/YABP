@@ -1,11 +1,15 @@
 import React, { PropTypes as PT } from 'react';
+import { Button } from 'semantic-ui-react';
 
 const Like = ({ likeCount, handleClick }) => {
   return (
-    <div>
-      <span>{likeCount}</span>
-      <button onClick={handleClick}>&#10084;</button>
-    </div>
+    <Button
+      color="red"
+      content="Like"
+      icon="heart"
+      label={{ basic: true, color: 'red', pointing: 'left', content: likeCount }}
+      onClick={handleClick}
+    />
   );
 };
 

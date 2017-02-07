@@ -7,8 +7,8 @@ const MetaInfo = ({ author, createdAt, updatedAt }) => {
       <span>{author}</span><br />
       {
         createdAt === updatedAt
-        ? <span>created at: {moment(createdAt).fromNow()}</span>
-        : <span>updated at: {moment(updatedAt).fromNow()}</span>
+        ? <span>created: {moment(createdAt).fromNow()}</span>
+        : <span>updated: {moment(updatedAt).fromNow()}</span>
       }
     </div>
   );
