@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { sortBy, chain } from 'lodash';
 import moment from 'moment';
+import { Grid } from 'semantic-ui-react';
 
 import blogItems from 'constants/posts';
 
@@ -40,18 +41,21 @@ class BlogPage extends Component {
     const chartItems =
       chain(items)
         .filter(({ meta }) => Number(meta.likeCount) > 0)
-        .map(({ text, meta }) => [text, Number(meta.likeCount)])
+        .map(({ title, meta }) => [title, Number(meta.likeCount)])
         .value();
 
     return (
-      <div>
-        <BlogList
-          items={items}
-          handleItemUpdate={this.handleItemUpdate}
-        />
-        { this.state.showChart &&
-          <PieChart items={chartItems} handleChartClose={this.handleChartClose} /> }
-      </div>
+      <Grid>
+        <Grid.Row columns={2}>
+          <Grid.Column width={12}>
+            <BlogList items={items} handleItemUpdate={this.handleItemUpdate} />
+          </Grid.Column>
+          <Grid.Column width={4}>
+            { this.state.showChart &&
+              <PieChart items={chartItems} handleChartClose={this.handleChartClose} /> }
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     );
   }
 }

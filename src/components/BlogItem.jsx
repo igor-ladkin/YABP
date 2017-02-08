@@ -1,5 +1,6 @@
 import React, { Component, PropTypes as PT } from 'react';
-import { Image, TextBox, MetaInfo } from './common';
+import { Item } from 'semantic-ui-react';
+import { MetaInfo } from './common';
 import Like from './Like';
 
 class BlogItem extends Component {
@@ -10,29 +11,40 @@ class BlogItem extends Component {
   }
 
   handleClick() {
-    const { id, image, text, meta, handleItemUpdate } = this.props;
+    const { id, image, title, text, meta, handleItemUpdate } = this.props;
     const { likeCount = 0 } = meta;
 
-    handleItemUpdate({ id, image, text, meta: { ...meta, likeCount: likeCount + 1 } });
+    handleItemUpdate({ id, image, title, text, meta: { ...meta, likeCount: likeCount + 1 } });
   }
 
   render() {
-    const { image, text, meta } = this.props;
+    const { image, title, text, meta } = this.props;
 
     return (
-      <li>
-        <Image {...image} />
-        <TextBox>{text}</TextBox>
-        <MetaInfo {...meta} />
-        <Like {...meta} handleClick={this.handleClick} />
-      </li>
+      <Item>
+        <Item.Image size="small" {...image} />
+        <Item.Content verticalAlign="bottom">
+          <Item.Header as="a">{title}</Item.Header>
+          <Item.Meta>
+            <MetaInfo {...meta} />
+          </Item.Meta>
+          <Item.Description>{text}</Item.Description>
+          <Item.Extra>
+            <Like {...meta} handleClick={this.handleClick} />
+          </Item.Extra>
+        </Item.Content>
+      </Item>
     );
   }
 }
 
 BlogItem.propTypes = {
   id: PT.string.isRequired,
-  image: PT.shape(Image.propTypes).isRequired,
+  image: PT.shape({
+    src: PT.string.isRequired,
+    alt: PT.string,
+  }).isRequired,
+  title: PT.string.isRequired,
   text: PT.string.isRequired,
   meta: PT.shape({
     ...MetaInfo.propTypes,

@@ -3,12 +3,12 @@ import moment from 'moment';
 
 const MetaInfo = ({ author, createdAt, updatedAt }) => (
   <div>
-    <span>{author}</span><br />
     {
       createdAt === updatedAt
       ? <span>created: {moment(createdAt).fromNow()}</span>
       : <span>updated: {moment(updatedAt).fromNow()}</span>
     }
+    <span>by {author}</span><br />
   </div>
 );
 
