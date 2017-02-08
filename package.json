@@ -9,6 +9,9 @@
   },
   "author": "Igor Ladkin <dgkplan@googlemail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "node initializers/server/index.js"
+  },
   "dependencies": {
     "c3": "^0.4.11",
     "lodash": "^4.17.4",
