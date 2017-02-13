@@ -19,7 +19,7 @@ class PieChart extends Component {
   }
 
   componentWillUnmount() {
-    console.log('Doing some garbage collecting');
+    console.log('Doing some garbage collecting'); // eslint-disable-line
     this.chart.destroy();
   }
 
