@@ -32,12 +32,12 @@ class BlogItem extends Component {
 
 BlogItem.propTypes = {
   id: PT.string.isRequired,
-  image: PT.shape(Image.propTypes),
+  image: PT.shape(Image.propTypes).isRequired,
   text: PT.string.isRequired,
   meta: PT.shape({
     ...MetaInfo.propTypes,
     likeCount: PT.number,
-  }),
+  }).isRequired,
   handleItemUpdate: PT.func.isRequired,
 };
 

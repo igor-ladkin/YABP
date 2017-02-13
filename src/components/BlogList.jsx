@@ -3,15 +3,13 @@ import { map, pick } from 'lodash';
 
 import BlogItem from './BlogItem';
 
-const BlogList = ({ items, handleItemUpdate }) => {
-  return DOM.ul(
-    null,
-    map(
-      items,
-      item => React.createElement(BlogItem, { ...item, key: item.id, handleItemUpdate }),
-    ),
-  );
-};
+const BlogList = ({ items, handleItemUpdate }) => DOM.ul(
+  null,
+  map(
+    items,
+    item => React.createElement(BlogItem, { ...item, key: item.id, handleItemUpdate }),
+  ),
+);
 
 BlogList.propTypes = {
   items: PT.arrayOf(PT.shape(

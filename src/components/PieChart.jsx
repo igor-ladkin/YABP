@@ -26,16 +26,16 @@ class PieChart extends Component {
   render() {
     return (
       <div>
-        <div id="pie-chart" ref={node => this.chartNode = node} />
-        <div id="close-button" onClick={this.props.handleChartClose}>&#10005;</div>
+        <div id="pie-chart" ref={node => (this.chartNode = node)} />
+        <button id="close-button" onClick={this.props.handleChartClose}>&#10005;</button>
       </div>
     );
   }
 }
 
 PieChart.propTypes = {
-  items: PT.arrayOf(PT.array),
-  handleChartClose: PT.func,
+  items: PT.arrayOf(PT.array).isRequired,
+  handleChartClose: PT.func.isRequired,
 };
 
 export default PieChart;

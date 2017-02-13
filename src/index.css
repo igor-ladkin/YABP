@@ -26,12 +26,14 @@ body {
 
   border: 1px solid black;
   border-radius: 50%;
+  outline: none;
 
   background-color: white;
 
   display: flex;
   justify-content: center;
   align-items: center;
+  line-height: normal;
 
   font-size: 10px;
 }
