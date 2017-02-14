@@ -10,7 +10,8 @@
   "author": "Igor Ladkin <dgkplan@googlemail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "node initializers/server/index.js"
+    "dev": "node initializers/server/index.js",
+    "lint": "./node_modules/eslint/bin/eslint.js --ext .jsx,.js src/."
   },
   "dependencies": {
     "c3": "^0.4.11",
