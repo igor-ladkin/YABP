@@ -14,7 +14,7 @@ const BlogList = ({ items, handleItemUpdate }) => (
 
 BlogList.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape(
-    pick(BlogItem.propTypes, ['id', 'image', 'title', 'text', 'meta']),
+    pick(BlogItem.propTypes, ['id', 'image', 'title', 'note', 'meta']),
   )).isRequired,
   handleItemUpdate: PropTypes.func.isRequired,
 };

@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { sortBy, chain } from 'lodash';
 import moment from 'moment';
 import request from 'superagent';
-import { Grid } from 'semantic-ui-react';
 
 import BlogList from 'components/BlogList';
 import PieChart from 'components/PieChart';
+
+import TwoColumnGrid from 'views/layouts/TwoColumnGrid';
 
 class BlogPage extends Component {
   constructor(props) {
@@ -60,17 +61,11 @@ class BlogPage extends Component {
         .value();
 
     return (
-      <Grid>
-        <Grid.Row columns={2}>
-          <Grid.Column width={12}>
-            <BlogList items={items} handleItemUpdate={this.handleItemUpdate} />
-          </Grid.Column>
-          <Grid.Column width={4}>
-            { this.state.showChart &&
-              <PieChart items={chartItems} handleChartClose={this.handleChartClose} /> }
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <TwoColumnGrid>
+        <BlogList items={items} handleItemUpdate={this.handleItemUpdate} />
+        { this.state.showChart &&
+          <PieChart items={chartItems} handleChartClose={this.handleChartClose} /> }
+      </TwoColumnGrid>
     );
   }
 }

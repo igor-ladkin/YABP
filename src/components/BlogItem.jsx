@@ -13,14 +13,14 @@ class BlogItem extends Component {
   }
 
   handleClick() {
-    const { id, image, title, text, meta, handleItemUpdate } = this.props;
+    const { id, image, title, note, meta, handleItemUpdate } = this.props;
     const { likeCount = 0 } = meta;
 
-    handleItemUpdate({ id, image, title, text, meta: { ...meta, likeCount: likeCount + 1 } });
+    handleItemUpdate({ id, image, title, note, meta: { ...meta, likeCount: likeCount + 1 } });
   }
 
   render() {
-    const { id, image, title, text, meta } = this.props;
+    const { id, image, title, note, meta } = this.props;
 
     return (
       <Item>
@@ -32,7 +32,7 @@ class BlogItem extends Component {
           <Item.Meta>
             <MetaInfo {...meta} />
           </Item.Meta>
-          <Item.Description>{text}</Item.Description>
+          <Item.Description>{note}</Item.Description>
           <Item.Extra>
             <Like {...meta} handleClick={this.handleClick} />
           </Item.Extra>
@@ -49,7 +49,7 @@ BlogItem.propTypes = {
     alt: PropTypes.string,
   }).isRequired,
   title: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
+  note: PropTypes.string.isRequired,
   meta: PropTypes.shape({
     ...MetaInfo.propTypes,
     likeCount: PropTypes.number,
