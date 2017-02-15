@@ -2,7 +2,7 @@ const blogPosts = [
   {
     id: '4242',
     image: {
-      src: '../dist/img/iron_man.jpg',
+      src: '/dist/img/iron_man.jpg',
       alt: 'Iron Man',
     },
     meta: {
@@ -17,7 +17,7 @@ const blogPosts = [
   {
     id: '1313',
     image: {
-      src: '../dist/img/ant_man.jpg',
+      src: '/dist/img/ant_man.jpg',
       alt: 'Ant Man',
     },
     meta: {
@@ -32,7 +32,7 @@ const blogPosts = [
   {
     id: '5858',
     image: {
-      src: '../dist/img/winter_soldier.jpg',
+      src: '/dist/img/winter_soldier.jpg',
       alt: 'The Winter Soldier',
     },
     meta: {
