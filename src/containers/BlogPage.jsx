@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { sortBy, chain } from 'lodash';
 import moment from 'moment';
+import request from 'superagent';
 import { Grid } from 'semantic-ui-react';
-
-import blogItems from 'constants/posts';
 
 import BlogList from 'components/BlogList';
 import PieChart from 'components/PieChart';
@@ -13,7 +12,7 @@ class BlogPage extends Component {
     super(props);
 
     this.state = {
-      blogItems: sortBy(blogItems, ({ meta }) => moment(meta.updatedAt)).reverse(),
+      blogItems: [],
       showChart: true,
     };
 
@@ -21,13 +20,29 @@ class BlogPage extends Component {
     this.handleChartClose = this.handleChartClose.bind(this);
   }
 
+  componentDidMount() {
+    this.fetchPosts();
+  }
+
+  sortBlogItems(blogItems) {
+    this.setState({
+      blogItems: sortBy(blogItems, ({ meta }) => moment(meta.updatedAt)).reverse(),
+    });
+  }
+
+  fetchPosts() {
+    request.get(
+      'http://localhost:3001',
+      {},
+      (err, res) => this.sortBlogItems(res.body),
+    );
+  }
+
   handleItemUpdate(updatedItem) {
     const items = this.state.blogItems;
     const updatedItems = [...items.filter(item => item.id !== updatedItem.id), updatedItem];
 
-    this.setState({
-      blogItems: sortBy(updatedItems, ({ meta }) => moment(meta.updatedAt)).reverse(),
-    });
+    this.sortBlogItems(updatedItems);
   }
 
   handleChartClose() {
