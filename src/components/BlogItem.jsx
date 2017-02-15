@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Item } from 'semantic-ui-react';
-import { MetaInfo } from './common';
+import { MetaInfo, Link } from './common';
 import Like from './Like';
 
 class BlogItem extends Component {
@@ -18,13 +18,15 @@ class BlogItem extends Component {
   }
 
   render() {
-    const { image, title, text, meta } = this.props;
+    const { id, image, title, text, meta } = this.props;
 
     return (
       <Item>
         <Item.Image size="small" {...image} />
         <Item.Content verticalAlign="bottom">
-          <Item.Header as="a">{title}</Item.Header>
+          <Item.Header as={Link} to={`/posts/${id}`}>
+            {title}
+          </Item.Header>
           <Item.Meta>
             <MetaInfo {...meta} />
           </Item.Meta>
