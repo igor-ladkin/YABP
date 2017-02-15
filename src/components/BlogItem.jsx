@@ -3,6 +3,8 @@ import { Item } from 'semantic-ui-react';
 import { MetaInfo, Link } from './common';
 import Like from './Like';
 
+import { postPath } from 'helpers/routes';
+
 class BlogItem extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +26,7 @@ class BlogItem extends Component {
       <Item>
         <Item.Image size="small" {...image} />
         <Item.Content verticalAlign="bottom">
-          <Item.Header as={Link} to={`/posts/${id}`}>
+          <Item.Header as={Link} to={postPath(id)}>
             {title}
           </Item.Header>
           <Item.Meta>
