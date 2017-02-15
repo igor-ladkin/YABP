@@ -23,6 +23,7 @@ module.exports = {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/require-default-props": 0,
     "react/forbid-prop-types": 0,
+    "react/no-danger": 1,
   },
   "settings": {
     "import/resolver": {

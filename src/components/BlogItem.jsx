@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Item } from 'semantic-ui-react';
+import { postPath } from 'helpers/routes';
+
 import { MetaInfo, Link } from './common';
 import Like from './Like';
-
-import { postPath } from 'helpers/routes';
 
 class BlogItem extends Component {
   constructor(props) {

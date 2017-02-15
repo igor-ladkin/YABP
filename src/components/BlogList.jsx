@@ -5,7 +5,7 @@ import { Segment, Item } from 'semantic-ui-react';
 import BlogItem from './BlogItem';
 
 const BlogList = ({ items, handleItemUpdate }) => (
-  <Segment>
+  <Segment className="main">
     <Item.Group divided>
       {map(items, item => <BlogItem key={item.id} handleItemUpdate={handleItemUpdate} {...item} />)}
     </Item.Group>

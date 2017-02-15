@@ -51,6 +51,11 @@ body {
 }
 
 /* Semantic UI Monkey Patches */
-.ui.segment {
+.ui.segment.main {
+  min-height: 720px;
   border-radius: 0;
+}
+
+.ui.menu.fixed.top {
+  z-index: 2000;
 }

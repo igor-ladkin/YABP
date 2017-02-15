@@ -1,19 +1,37 @@
-import React, { PropTypes } from 'react';
-import { Item } from 'semantic-ui-react';
+import React, { Component, PropTypes } from 'react';
+import request from 'superagent';
 
-import posts from 'constants/posts';
+import Article from 'components/Article';
+import Loader from 'components/Loader';
 
-import BlogItem from 'components/BlogItem';
+class Post extends Component {
+  constructor(props) {
+    super(props);
 
-const Post = ({ params }) => {
-  const post = posts.find(p => p.id === params.id);
+    this.state = {
+      blogItems: [],
+    };
+  }
 
-  return (
-    <Item.Group>
-      <BlogItem {...post} />
-    </Item.Group>
-  );
-};
+  componentDidMount() {
+    this.fetchPosts();
+  }
+
+  fetchPosts() {
+    request.get(
+      'http://localhost:3001',
+      {},
+      (err, res) => this.setState({ blogItems: res.body }),
+    );
+  }
+
+  render() {
+    const { params } = this.props;
+    const item = this.state.blogItems.find(i => i.id === params.id);
+
+    return item ? <Article {...item} /> : <Loader />;
+  }
+}
 
 Post.propTypes = {
   params: PropTypes.object,

@@ -10,7 +10,7 @@ const MainMenu = () => {
   const handleGoForwardClick = () => history.goForward();
 
   return (
-    <Menu fixed="top" inverted>
+    <Menu fixed="top" inverted className="main">
       <Link to="/">
         <Menu.Item
           id="main-menu-logo"
