@@ -1,4 +1,4 @@
-import React, { Component, PropTypes as PT } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Item } from 'semantic-ui-react';
 import { MetaInfo } from './common';
 import Like from './Like';
@@ -39,18 +39,18 @@ class BlogItem extends Component {
 }
 
 BlogItem.propTypes = {
-  id: PT.string.isRequired,
-  image: PT.shape({
-    src: PT.string.isRequired,
-    alt: PT.string,
+  id: PropTypes.string.isRequired,
+  image: PropTypes.shape({
+    src: PropTypes.string.isRequired,
+    alt: PropTypes.string,
   }).isRequired,
-  title: PT.string.isRequired,
-  text: PT.string.isRequired,
-  meta: PT.shape({
+  title: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  meta: PropTypes.shape({
     ...MetaInfo.propTypes,
-    likeCount: PT.number,
+    likeCount: PropTypes.number,
   }).isRequired,
-  handleItemUpdate: PT.func.isRequired,
+  handleItemUpdate: PropTypes.func.isRequired,
 };
 
 export default BlogItem;

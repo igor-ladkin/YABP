@@ -1,4 +1,4 @@
-import React, { PropTypes as PT } from 'react';
+import React, { PropTypes } from 'react';
 import { Button } from 'semantic-ui-react';
 
 const Like = ({ likeCount, handleClick }) => (
@@ -14,8 +14,8 @@ const Like = ({ likeCount, handleClick }) => (
 );
 
 Like.propTypes = {
-  likeCount: PT.number,
-  handleClick: PT.func.isRequired,
+  likeCount: PropTypes.number,
+  handleClick: PropTypes.func.isRequired,
 };
 
 Like.defaultProps = {

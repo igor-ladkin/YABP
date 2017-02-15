@@ -1,4 +1,4 @@
-import React, { PropTypes as PT } from 'react';
+import React, { PropTypes } from 'react';
 import { map, pick } from 'lodash';
 import { Segment, Item } from 'semantic-ui-react';
 
@@ -13,10 +13,10 @@ const BlogList = ({ items, handleItemUpdate }) => (
 );
 
 BlogList.propTypes = {
-  items: PT.arrayOf(PT.shape(
+  items: PropTypes.arrayOf(PropTypes.shape(
     pick(BlogItem.propTypes, ['id', 'image', 'title', 'text', 'meta']),
   )).isRequired,
-  handleItemUpdate: PT.func.isRequired,
+  handleItemUpdate: PropTypes.func.isRequired,
 };
 
 export default BlogList;

@@ -1,12 +1,11 @@
 import React from 'react';
 
-import MainMenu from './components/MainMenu';
+import MainLayout from './layouts/MainLayout';
 import BlogPage from './containers/BlogPage';
 
 const App = () => React.createElement(
-  'div',
+  MainLayout,
   {},
-  React.createElement(MainMenu),
   React.createElement(BlogPage),
 );
 

@@ -1,4 +1,4 @@
-import React, { PropTypes as PT } from 'react';
+import React, { PropTypes } from 'react';
 import moment from 'moment';
 
 const MetaInfo = ({ author, createdAt, updatedAt }) => (
@@ -13,9 +13,9 @@ const MetaInfo = ({ author, createdAt, updatedAt }) => (
 );
 
 MetaInfo.propTypes = {
-  author: PT.string,
-  createdAt: PT.string.isRequired,
-  updatedAt: PT.string.isRequired,
+  author: PropTypes.string,
+  createdAt: PropTypes.string.isRequired,
+  updatedAt: PropTypes.string.isRequired,
 };
 
 MetaInfo.defaultProps = {

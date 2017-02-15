@@ -1,4 +1,4 @@
-import React, { Component, PropTypes as PT } from 'react';
+import React, { Component, PropTypes } from 'react';
 import c3 from 'c3';
 
 class PieChart extends Component {
@@ -34,8 +34,8 @@ class PieChart extends Component {
 }
 
 PieChart.propTypes = {
-  items: PT.arrayOf(PT.array).isRequired,
-  handleChartClose: PT.func.isRequired,
+  items: PropTypes.arrayOf(PropTypes.array).isRequired,
+  handleChartClose: PropTypes.func.isRequired,
 };
 
 export default PieChart;
