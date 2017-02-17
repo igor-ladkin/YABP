@@ -4,6 +4,7 @@ import { Menu, Icon } from 'semantic-ui-react';
 import { Link } from 'components/common';
 
 import history from 'helpers/history';
+import { aboutPath } from 'helpers/routes';
 
 const MainMenu = () => {
   const handleGoBackClick = () => history.goBack();
@@ -11,16 +12,21 @@ const MainMenu = () => {
 
   return (
     <Menu fixed="top" inverted className="main">
-      <Link to="/">
-        <Menu.Item
-          id="main-menu-logo"
-          color="red"
-          header
-          active
-        >
-          Yet Another Blogging Platform
-        </Menu.Item>
-      </Link>
+      <Menu.Item
+        id="main-menu-logo"
+        color="red"
+        header
+        active
+        as={Link}
+        to="/"
+        content="Yet Another Blogging Platform"
+      />
+      <Menu.Item
+        as={Link}
+        to={aboutPath()}
+        content="About"
+        activeClassName="active"
+      />
 
       <Menu.Menu position="right">
         <Menu.Item onClick={handleGoBackClick} >
