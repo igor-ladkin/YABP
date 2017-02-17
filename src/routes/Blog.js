@@ -1,12 +1,12 @@
 import MainLayout from 'layouts/MainLayout';
-import BlogPage from 'views/BlogPage';
+import Blog from 'views/Blog';
 import Post from 'views/Post';
 
 import { postPath } from 'helpers/routes';
 
 const Index = {
   path: '/',
-  component: BlogPage,
+  component: Blog,
 };
 
 const PostRoute = {

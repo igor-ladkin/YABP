@@ -8,7 +8,7 @@ import PieChart from 'components/PieChart';
 
 import TwoColumnGrid from 'views/layouts/TwoColumnGrid';
 
-class BlogPage extends Component {
+class Blog extends Component {
   constructor(props) {
     super(props);
 
@@ -70,4 +70,4 @@ class BlogPage extends Component {
   }
 }
 
-export default BlogPage;
+export default Blog;

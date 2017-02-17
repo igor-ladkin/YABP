@@ -3,6 +3,7 @@ import request from 'superagent';
 
 import Article from 'components/Article';
 import Loader from 'components/Loader';
+import OneColumnGrid from './layouts/OneColumnGrid';
 
 class Post extends Component {
   constructor(props) {
@@ -29,7 +30,11 @@ class Post extends Component {
     const { params } = this.props;
     const item = this.state.blogItems.find(i => i.id === params.id);
 
-    return item ? <Article {...item} /> : <Loader />;
+    return (
+      <OneColumnGrid>
+        {item ? <Article {...item} /> : <Loader />}
+      </OneColumnGrid>
+    );
   }
 }
 
