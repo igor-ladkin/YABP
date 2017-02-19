@@ -5,6 +5,7 @@ import request from 'superagent';
 
 import BlogList from 'components/BlogList';
 import PieChart from 'components/PieChart';
+import Search from 'components/Search';
 
 import TwoColumnGrid from 'views/layouts/TwoColumnGrid';
 
@@ -14,11 +15,13 @@ class Blog extends Component {
 
     this.state = {
       blogItems: [],
-      showChart: true,
+      showChart: false,
+      showSearch: true,
     };
 
     this.handleItemUpdate = this.handleItemUpdate.bind(this);
     this.handleChartClose = this.handleChartClose.bind(this);
+    this.handleSearchToggle = this.handleSearchToggle.bind(this);
   }
 
   componentDidMount() {
@@ -47,9 +50,11 @@ class Blog extends Component {
   }
 
   handleChartClose() {
-    this.setState({
-      showChart: !this.state.showChart,
-    });
+    this.setState({ showChart: !this.state.showChart });
+  }
+
+  handleSearchToggle() {
+    this.setState({ showSearch: !this.state.showSearch });
   }
 
   render() {
@@ -63,8 +68,12 @@ class Blog extends Component {
     return (
       <TwoColumnGrid>
         <BlogList items={items} handleItemUpdate={this.handleItemUpdate} />
-        { this.state.showChart &&
-          <PieChart items={chartItems} handleChartClose={this.handleChartClose} /> }
+        <div>
+          { this.state.showChart &&
+            <PieChart items={chartItems} handleChartClose={this.handleChartClose} /> }
+          { this.state.showSearch &&
+            <Search items={items} handleSearchToggle={this.handleSearchToggle} /> }
+        </div>
       </TwoColumnGrid>
     );
   }

@@ -50,10 +50,20 @@ body {
   color: white;
 }
 
+.close-button {
+  margin-bottom: 10px;
+  overflow: auto;
+}
+
 /* Semantic UI Monkey Patches */
 .ui.segment.main {
   min-height: 720px;
   border-radius: 0;
+}
+
+.ui.segment.aside {
+  top: 14px;
+  right: 14px;
 }
 
 .ui.menu.fixed.top {
