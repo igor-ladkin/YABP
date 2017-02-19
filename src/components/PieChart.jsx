@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import c3 from 'c3';
 
+import AsideControl from 'layouts/AsideControl';
+
 class PieChart extends Component {
   componentDidMount() {
     this.chart = c3.generate({
@@ -24,11 +26,12 @@ class PieChart extends Component {
   }
 
   render() {
+    const { handleChartClose } = this.props;
+
     return (
-      <div>
+      <AsideControl handleClose={handleChartClose}>
         <div id="pie-chart" ref={node => (this.chartNode = node)} />
-        <button id="close-button" onClick={this.props.handleChartClose}>&#10005;</button>
-      </div>
+      </AsideControl>
     );
   }
 }

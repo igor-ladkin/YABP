@@ -5,6 +5,8 @@ import { filter, escapeRegExp, pick, join, at } from 'lodash';
 import history from 'helpers/history';
 import { postPath } from 'helpers/routes';
 
+import AsideControl from 'layouts/AsideControl';
+
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -50,17 +52,7 @@ class Search extends Component {
     const { handleSearchToggle } = this.props;
 
     return (
-      <Segment className="aside">
-        <div className="close-button">
-          <Button
-            circular
-            basic
-            icon="close"
-            size="tiny"
-            floated="right"
-            onClick={handleSearchToggle}
-          />
-        </div>
+      <AsideControl handleClose={handleSearchToggle}>
         <SemanticSearch
           fluid
           input={<Input fluid />}
@@ -68,10 +60,11 @@ class Search extends Component {
           loading={isLoading}
           onResultSelect={(e, result) => history.push(postPath(result.id))}
           onSearchChange={this.handleSearchChange}
+          onBlur={this.resetComponent}
           results={results}
           value={value}
         />
-      </Segment>
+      </AsideControl>
     );
   }
 }

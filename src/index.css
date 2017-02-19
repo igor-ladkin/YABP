@@ -9,45 +9,8 @@ body {
 }
 
 #pie-chart {
-  position: fixed !important;
-  top: 75px;
-  right: 35px;
-
   width: 300px;
   height: 400px;
-
-  border: 1px solid black;
-  border-radius: 5px;
-
-  box-shadow: 0 1px 2px 0 rgba(34,36,38,.35);
-}
-
-#close-button {
-  position: fixed;
-  top: 65px;
-  right: 25px;
-
-  width: 20px;
-  height: 20px;
-
-  border: 1px solid black;
-  border-radius: 50%;
-  outline: none;
-
-  background-color: white;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  line-height: normal;
-
-  font-size: 10px;
-}
-
-#close-button:hover {
-  cursor: pointer;
-  background-color: black;
-  color: white;
 }
 
 .close-button {
@@ -56,9 +19,12 @@ body {
 }
 
 /* Semantic UI Monkey Patches */
+.ui.segment {
+  border-radius: 0;
+}
+
 .ui.segment.main {
   min-height: 720px;
-  border-radius: 0;
 }
 
 .ui.segment.aside {

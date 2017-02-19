@@ -15,7 +15,7 @@ class Blog extends Component {
 
     this.state = {
       blogItems: [],
-      showChart: false,
+      showChart: true,
       showSearch: true,
     };
 
@@ -69,10 +69,10 @@ class Blog extends Component {
       <TwoColumnGrid>
         <BlogList items={items} handleItemUpdate={this.handleItemUpdate} />
         <div>
-          { this.state.showChart &&
-            <PieChart items={chartItems} handleChartClose={this.handleChartClose} /> }
           { this.state.showSearch &&
             <Search items={items} handleSearchToggle={this.handleSearchToggle} /> }
+          { this.state.showChart &&
+            <PieChart items={chartItems} handleChartClose={this.handleChartClose} /> }
         </div>
       </TwoColumnGrid>
     );
