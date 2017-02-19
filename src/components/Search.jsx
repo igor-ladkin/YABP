@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Search as SemanticSearch, Segment, Input, Button } from 'semantic-ui-react';
+import { Search as SemanticSearch, Input } from 'semantic-ui-react';
 import { filter, escapeRegExp, pick, join, at } from 'lodash';
 
 import history from 'helpers/history';
@@ -60,7 +60,7 @@ class Search extends Component {
           loading={isLoading}
           onResultSelect={(e, result) => history.push(postPath(result.id))}
           onSearchChange={this.handleSearchChange}
-          onBlur={this.resetComponent}
+          onFocus={this.resetComponent}
           results={results}
           value={value}
         />

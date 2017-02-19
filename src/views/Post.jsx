@@ -10,25 +10,26 @@ class Post extends Component {
     super(props);
 
     this.state = {
-      blogItems: [],
+      blogItem: null,
     };
   }
 
   componentDidMount() {
-    this.fetchPosts();
+    this.fetchPost();
   }
 
-  fetchPosts() {
+  fetchPost() {
+    const { params } = this.props;
+
     request.get(
-      'http://localhost:3001',
+      `http://localhost:3001/posts/${params.id}`,
       {},
-      (err, res) => this.setState({ blogItems: res.body }),
+      (err, res) => this.setState({ blogItem: res.body }),
     );
   }
 
   render() {
-    const { params } = this.props;
-    const item = this.state.blogItems.find(i => i.id === params.id);
+    const item = this.state.blogItem;
 
     return (
       <OneColumnGrid>

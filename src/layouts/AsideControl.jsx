@@ -18,7 +18,7 @@ const AsideControl = ({ children, handleClose }) => (
 );
 
 AsideControl.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.node),
+  children: PropTypes.node,
   handleClose: PropTypes.func.isRequired,
 };
 
