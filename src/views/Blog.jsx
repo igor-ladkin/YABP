@@ -6,6 +6,7 @@ import request from 'superagent';
 import BlogList from 'components/BlogList';
 import PieChart from 'components/PieChart';
 import Search from 'components/Search';
+import Loader from 'components/Loader';
 
 import TwoColumnGrid from 'views/layouts/TwoColumnGrid';
 
@@ -67,7 +68,10 @@ class Blog extends Component {
 
     return (
       <TwoColumnGrid>
-        <BlogList items={items} handleItemUpdate={this.handleItemUpdate} />
+        { items.length ?
+          <BlogList items={items} handleItemUpdate={this.handleItemUpdate} /> :
+          <Loader /> }
+
         <div>
           { this.state.showSearch &&
             <Search items={items} handleSearchToggle={this.handleSearchToggle} /> }
