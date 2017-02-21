@@ -72,7 +72,7 @@ class Blog extends Component {
           <BlogList items={items} handleItemUpdate={this.handleItemUpdate} /> :
           <Loader /> }
 
-        <div>
+        <div id="controls">
           { this.state.showSearch &&
             <Search items={items} handleSearchToggle={this.handleSearchToggle} /> }
           { this.state.showChart &&
