@@ -13,10 +13,9 @@ class BlogItem extends Component {
   }
 
   handleClick() {
-    const { id, image, title, note, meta, handleItemUpdate } = this.props;
-    const { likeCount = 0 } = meta;
+    const { id, handleItemUpdate } = this.props;
 
-    handleItemUpdate({ id, image, title, note, meta: { ...meta, likeCount: likeCount + 1 } });
+    handleItemUpdate(id);
   }
 
   render() {

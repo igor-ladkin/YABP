@@ -62,13 +62,20 @@ class Blog extends Component {
     );
   }
 
-  handleItemUpdate(updatedItem) {
-    const items = this.state.blogItems;
-    const updatedItems = [...items.filter(item => item.id !== updatedItem.id), updatedItem];
+  handleItemUpdate(itemId) {
+    request.patch(
+      `http://localhost:3001/posts/${itemId}/like`,
+      {},
+      (err, res) => {
+        const updatedItem = res.body;
+        const items = this.state.blogItems;
+        const updatedItems = [...items.filter(item => item.id !== updatedItem.id), updatedItem];
 
-    this.setState({
-      blogItems: this.sortItems(updatedItems),
-    });
+        this.setState({
+          blogItems: this.sortItems(updatedItems),
+        });
+      },
+    );
   }
 
   handlePageSelect(activePage, activeItemIds) {
@@ -96,8 +103,10 @@ class Blog extends Component {
     const chartItems =
       chain(items)
         .filter(({ meta }) => Number(meta.likeCount) > 0)
-        .map(({ title, meta }) => [title, Number(meta.likeCount)])
-        .value();
+        .map(({ title, meta }) => {
+          const name = title.split('. ')[1].replace('.', '');
+          return [name, Number(meta.likeCount)];
+        }).value();
 
     return (
       <TwoColumnGrid>
