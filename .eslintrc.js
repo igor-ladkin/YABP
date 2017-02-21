@@ -17,6 +17,7 @@ module.exports = {
     "destructuring",
   ],
   "rules": {
+    "class-methods-use-this": 1,
     "import/prefer-default-export": 0,
     "react/jsx-uses-vars": 2,
     "react/jsx-uses-react": 2,
@@ -24,6 +25,7 @@ module.exports = {
     "react/require-default-props": 0,
     "react/forbid-prop-types": 0,
     "react/no-danger": 1,
+    "react/no-array-index-key": 1,
   },
   "settings": {
     "import/resolver": {

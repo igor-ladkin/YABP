@@ -14,7 +14,7 @@ body {
 
 #pie-chart {
   width: 300px;
-  height: 460px;
+  height: 375px;
 }
 
 .close-button {
@@ -34,6 +34,8 @@ body {
 .ui.segment.aside {
   top: 14px;
   right: 14px;
+
+  min-width: 330px;
 }
 
 .ui.menu.fixed.top {
