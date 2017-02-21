@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+#pie-chart {
+  position: fixed !important;
+  top: 50px;
+  right: 50px;
+
+  width: 300px;
+  height: 400px;
+
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+#close-button {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+
+  width: 20px;
+  height: 20px;
+
+  border: 1px solid black;
+  border-radius: 50%;
+  outline: none;
+
+  background-color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: normal;
+
+  font-size: 10px;
+}
+
+#close-button:hover {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+}
