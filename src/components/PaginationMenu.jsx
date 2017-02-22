@@ -2,12 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { Menu, Segment } from 'semantic-ui-react';
 import { chunk } from 'lodash';
 
-import { POSTS_PER_PAGE } from 'constants';
-
 class PaginationMenu extends Component {
   splitIntoPages() {
-    const { itemIds } = this.props;
-    return chunk(itemIds, POSTS_PER_PAGE);
+    const { itemIds, itemsPerPage } = this.props;
+    return chunk(itemIds, itemsPerPage);
   }
 
   selectActiveItems() {
@@ -43,6 +41,7 @@ class PaginationMenu extends Component {
 
 PaginationMenu.propTypes = {
   itemIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  itemsPerPage: PropTypes.number.isRequired,
   activePage: PropTypes.number.isRequired,
   handlePageSelect: PropTypes.func.isRequired,
 };

@@ -123,6 +123,7 @@ class Blog extends Component {
             <PieChart items={chartItems} handleChartClose={this.handleChartClose} /> }
           <PaginationMenu
             itemIds={items.map(item => item.id)}
+            itemsPerPage={POSTS_PER_PAGE}
             activePage={this.state.activePage}
             handlePageSelect={this.handlePageSelect}
           />
