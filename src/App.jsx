@@ -1,10 +1,12 @@
 import React from 'react';
-import { Router, browserHistory } from 'react-router';
+import { Router } from 'react-router';
+
+import history from 'helpers/history';
 
 import routes from 'routes';
 
 const App = () => (
-  <Router history={browserHistory} routes={routes} />
+  <Router history={history} routes={routes} />
 );
 
 export default App;
