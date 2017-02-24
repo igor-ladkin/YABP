@@ -32,7 +32,7 @@ class Search extends Component {
       if (this.state.value.length < 1) return this.resetComponent();
 
       const re = new RegExp(escapeRegExp(this.state.value), 'i');
-      const indexText = result => join(at(result, ['title', 'description']), ' ');
+      const indexText = result => join(at(result, ['title', 'note']), ' ');
       const isMatch = result => re.test(indexText(result));
       const results =
         filter(this.props.items, isMatch)
