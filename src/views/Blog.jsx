@@ -18,18 +18,13 @@ class Blog extends Component {
   constructor(props) {
     super(props);
 
-    const { page } = this.props.location.query;
-
     this.state = {
       blogItems: [],
       showChart: true,
       showSearch: true,
-      activePage: Number(page) || 1,
-      activeItemIds: [],
     };
 
     this.handleItemUpdate = this.handleItemUpdate.bind(this);
-    this.handlePageSelect = this.handlePageSelect.bind(this);
     this.handleChartClose = this.handleChartClose.bind(this);
     this.handleSearchToggle = this.handleSearchToggle.bind(this);
   }
@@ -47,17 +42,8 @@ class Blog extends Component {
       'http://localhost:3001',
       {},
       (err, res) => {
-        const { activePage } = this.state;
-        const firstActiveItem = (activePage - 1) * POSTS_PER_PAGE;
-        const lastActiveItem = firstActiveItem + POSTS_PER_PAGE;
-
         const blogItems = this.sortItems(res.body);
-        const activeItemIds =
-          blogItems
-            .map(item => item.id)
-            .slice(firstActiveItem, lastActiveItem);
-
-        this.setState({ blogItems, activeItemIds });
+        this.setState({ blogItems });
       },
     );
   }
@@ -78,13 +64,6 @@ class Blog extends Component {
     );
   }
 
-  handlePageSelect(activePage, activeItemIds) {
-    const path = activePage === 1 ? '/' : `/?page=${activePage}`;
-
-    this.setState({ activePage, activeItemIds });
-    history.push(path);
-  }
-
   handleChartClose() {
     this.setState({ showChart: !this.state.showChart });
   }
@@ -93,8 +72,25 @@ class Blog extends Component {
     this.setState({ showSearch: !this.state.showSearch });
   }
 
+  fetchActivePage() {
+    const { page } = this.props.location.query;
+    return Number(page) || 1;
+  }
+
+  fetchActiveItemIds() {
+    const { blogItems } = this.state;
+    const activePage = this.fetchActivePage();
+
+    const firstActiveItem = (activePage - 1) * POSTS_PER_PAGE;
+    const lastActiveItem = firstActiveItem + POSTS_PER_PAGE;
+
+    return blogItems.map(item => item.id).slice(firstActiveItem, lastActiveItem);
+  }
+
   filterActivePagePosts() {
-    const { blogItems, activeItemIds } = this.state;
+    const { blogItems } = this.state;
+    const activeItemIds = this.fetchActiveItemIds();
+
     return blogItems.filter(item => activeItemIds.includes(item.id));
   }
 
@@ -124,8 +120,7 @@ class Blog extends Component {
           <PaginationMenu
             itemIds={items.map(item => item.id)}
             itemsPerPage={POSTS_PER_PAGE}
-            activePage={this.state.activePage}
-            handlePageSelect={this.handlePageSelect}
+            activePage={this.fetchActivePage()}
           />
         </div>
       </TwoColumnGrid>

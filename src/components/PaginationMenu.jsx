@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Menu, Segment } from 'semantic-ui-react';
 import { chunk } from 'lodash';
+import history from 'helpers/history';
 
 class PaginationMenu extends Component {
   splitIntoPages() {
@@ -14,9 +15,8 @@ class PaginationMenu extends Component {
   }
 
   render() {
-    const { activePage, handlePageSelect } = this.props;
+    const { activePage } = this.props;
     const pages = this.splitIntoPages();
-    const pageItemIds = i => pages[i] || [];
 
     const renderMenuItems = () => (
       pages.map((page, i) => (
@@ -24,7 +24,10 @@ class PaginationMenu extends Component {
           key={`page-${i}`}
           name={`${i + 1}`}
           active={activePage === i + 1}
-          onClick={() => { handlePageSelect(i + 1, pageItemIds(i)); }}
+          onClick={() => {
+            const path = i === 0 ? '/' : `/?page=${i + 1}`;
+            history.push(path);
+          }}
         />
       ))
     );
@@ -43,7 +46,6 @@ PaginationMenu.propTypes = {
   itemIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   itemsPerPage: PropTypes.number.isRequired,
   activePage: PropTypes.number.isRequired,
-  handlePageSelect: PropTypes.func.isRequired,
 };
 
 export default PaginationMenu;
