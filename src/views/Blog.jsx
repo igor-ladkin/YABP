@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { sortBy, chain } from 'lodash';
 import request from 'superagent';
 
@@ -19,7 +20,6 @@ class Blog extends Component {
     super(props);
 
     this.state = {
-      blogItems: [],
       showChart: true,
       showSearch: true,
     };
@@ -29,23 +29,8 @@ class Blog extends Component {
     this.handleSearchToggle = this.handleSearchToggle.bind(this);
   }
 
-  componentDidMount() {
-    this.fetchPosts();
-  }
-
   sortItems(items) {
     return sortBy(items, ({ id }) => Number(id));
-  }
-
-  fetchPosts() {
-    request.get(
-      'http://localhost:3001',
-      {},
-      (err, res) => {
-        const blogItems = this.sortItems(res.body);
-        this.setState({ blogItems });
-      },
-    );
   }
 
   handleItemUpdate(itemId) {
@@ -54,12 +39,10 @@ class Blog extends Component {
       {},
       (err, res) => {
         const updatedItem = res.body;
-        const items = this.state.blogItems;
+        const { items } = this.props;
         const updatedItems = [...items.filter(item => item.id !== updatedItem.id), updatedItem];
 
-        this.setState({
-          blogItems: this.sortItems(updatedItems),
-        });
+        console.log('Like success');
       },
     );
   }
@@ -84,24 +67,24 @@ class Blog extends Component {
   }
 
   fetchActiveItemIds() {
-    const { blogItems } = this.state;
+    const { items } = this.props;
     const activePage = this.fetchActivePage();
 
     const firstActiveItem = (activePage - 1) * POSTS_PER_PAGE;
     const lastActiveItem = firstActiveItem + POSTS_PER_PAGE;
 
-    return blogItems.map(item => item.id).slice(firstActiveItem, lastActiveItem);
+    return items.map(item => item.id).slice(firstActiveItem, lastActiveItem);
   }
 
   filterActivePagePosts() {
-    const { blogItems } = this.state;
+    const { items } = this.props;
     const activeItemIds = this.fetchActiveItemIds();
 
-    return blogItems.filter(item => activeItemIds.includes(item.id));
+    return items.filter(item => activeItemIds.includes(item.id));
   }
 
   render() {
-    const items = this.state.blogItems;
+    const { items, isFetching } = this.props;
     const chartItems =
       chain(items)
         .filter(({ meta }) => Number(meta.likeCount) > 0)
@@ -112,11 +95,14 @@ class Blog extends Component {
 
     return (
       <TwoColumnGrid>
-        { items.length ?
-          <BlogList
-            items={this.filterActivePagePosts()}
-            handleItemUpdate={this.handleItemUpdate}
-          /> : <Loader /> }
+        <div>
+          { isFetching && <Loader /> }
+          { items.length &&
+            <BlogList
+              items={this.filterActivePagePosts()}
+              handleItemUpdate={this.handleItemUpdate}
+            /> }
+        </div>
 
         <div id="controls">
           { this.state.showSearch &&
@@ -135,4 +121,14 @@ class Blog extends Component {
   }
 }
 
-export default Blog;
+Blog.propTypes = {
+  items: BlogList.propTypes.items,
+  isFetching: PropTypes.bool.isRequired,
+};
+
+const stateToProps = (state) => {
+  const { items, isFetching, error } = state.posts;
+  return { items, isFetching, error };
+};
+
+export default connect(stateToProps)(Blog);
