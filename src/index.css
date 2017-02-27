@@ -28,7 +28,7 @@ body {
 }
 
 .ui.segment.main {
-  min-height: 720px;
+  min-height: calc(100vh - 40px);
 }
 
 .ui.segment.aside {

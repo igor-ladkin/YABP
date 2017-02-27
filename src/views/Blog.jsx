@@ -64,6 +64,12 @@ class Blog extends Component {
     );
   }
 
+  handlePageSelect(activePage) {
+    const path = activePage === 1 ? '/' : `/?page=${activePage}`;
+    history.push(path);
+  }
+
+
   handleChartClose() {
     this.setState({ showChart: !this.state.showChart });
   }
@@ -121,6 +127,7 @@ class Blog extends Component {
             itemIds={items.map(item => item.id)}
             itemsPerPage={POSTS_PER_PAGE}
             activePage={this.fetchActivePage()}
+            handlePageSelect={this.handlePageSelect}
           />
         </div>
       </TwoColumnGrid>
