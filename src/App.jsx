@@ -1,13 +1,12 @@
 import React from 'react';
+import { Router } from 'react-router';
 
-import MainMenu from './components/MainMenu';
-import BlogPage from './containers/BlogPage';
+import history from 'helpers/history';
 
-const App = () => React.createElement(
-  'div',
-  {},
-  React.createElement(MainMenu),
-  React.createElement(BlogPage),
+import routes from 'routes';
+
+const App = () => (
+  <Router history={history} routes={routes} />
 );
 
 export default App;

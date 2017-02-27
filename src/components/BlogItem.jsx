@@ -1,6 +1,8 @@
-import React, { Component, PropTypes as PT } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Item } from 'semantic-ui-react';
-import { MetaInfo } from './common';
+import { postPath } from 'helpers/routes';
+
+import { MetaInfo, Link } from './common';
 import Like from './Like';
 
 class BlogItem extends Component {
@@ -11,24 +13,25 @@ class BlogItem extends Component {
   }
 
   handleClick() {
-    const { id, image, title, text, meta, handleItemUpdate } = this.props;
-    const { likeCount = 0 } = meta;
+    const { id, handleItemUpdate } = this.props;
 
-    handleItemUpdate({ id, image, title, text, meta: { ...meta, likeCount: likeCount + 1 } });
+    handleItemUpdate(id);
   }
 
   render() {
-    const { image, title, text, meta } = this.props;
+    const { id, image, title, note, meta } = this.props;
 
     return (
       <Item>
         <Item.Image size="small" {...image} />
         <Item.Content verticalAlign="bottom">
-          <Item.Header as="a">{title}</Item.Header>
+          <Item.Header as={Link} to={postPath(id)}>
+            {title}
+          </Item.Header>
           <Item.Meta>
             <MetaInfo {...meta} />
           </Item.Meta>
-          <Item.Description>{text}</Item.Description>
+          <Item.Description>{note}</Item.Description>
           <Item.Extra>
             <Like {...meta} handleClick={this.handleClick} />
           </Item.Extra>
@@ -39,18 +42,18 @@ class BlogItem extends Component {
 }
 
 BlogItem.propTypes = {
-  id: PT.string.isRequired,
-  image: PT.shape({
-    src: PT.string.isRequired,
-    alt: PT.string,
+  id: PropTypes.string.isRequired,
+  image: PropTypes.shape({
+    src: PropTypes.string.isRequired,
+    alt: PropTypes.string,
   }).isRequired,
-  title: PT.string.isRequired,
-  text: PT.string.isRequired,
-  meta: PT.shape({
+  title: PropTypes.string.isRequired,
+  note: PropTypes.string.isRequired,
+  meta: PropTypes.shape({
     ...MetaInfo.propTypes,
-    likeCount: PT.number,
+    likeCount: PropTypes.number,
   }).isRequired,
-  handleItemUpdate: PT.func.isRequired,
+  handleItemUpdate: PropTypes.func.isRequired,
 };
 
 export default BlogItem;

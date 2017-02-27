@@ -1,5 +1,7 @@
-import React, { Component, PropTypes as PT } from 'react';
+import React, { Component, PropTypes } from 'react';
 import c3 from 'c3';
+
+import AsideControl from 'layouts/AsideControl';
 
 class PieChart extends Component {
   componentDidMount() {
@@ -24,18 +26,19 @@ class PieChart extends Component {
   }
 
   render() {
+    const { handleChartClose } = this.props;
+
     return (
-      <div>
+      <AsideControl handleClose={handleChartClose}>
         <div id="pie-chart" ref={node => (this.chartNode = node)} />
-        <button id="close-button" onClick={this.props.handleChartClose}>&#10005;</button>
-      </div>
+      </AsideControl>
     );
   }
 }
 
 PieChart.propTypes = {
-  items: PT.arrayOf(PT.array).isRequired,
-  handleChartClose: PT.func.isRequired,
+  items: PropTypes.arrayOf(PropTypes.array).isRequired,
+  handleChartClose: PropTypes.func.isRequired,
 };
 
 export default PieChart;
