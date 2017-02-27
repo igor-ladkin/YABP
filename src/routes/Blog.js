@@ -5,6 +5,7 @@ import About from 'views/About';
 
 import { postPath, aboutPath } from 'helpers/routes';
 import { fetchPosts } from 'actions/Posts';
+import { fetchPost } from 'actions/Post';
 
 const Index = {
   path: '/',
@@ -22,6 +23,9 @@ const AboutRoute = {
 const PostRoute = {
   path: postPath(),
   component: Post,
+  prepareData: (store, query, params) => {
+    store.dispatch(fetchPost(params.id));
+  },
 };
 
 export default {
