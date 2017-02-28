@@ -1,3 +1,5 @@
+import { get } from 'lodash';
+
 import MainLayout from 'layouts/MainLayout';
 import Blog from 'views/Blog';
 import Post from 'views/Post';
@@ -10,8 +12,10 @@ import { fetchPost } from 'actions/Post';
 const Index = {
   path: '/',
   component: Blog,
-  prepareData: (store) => {
-    store.dispatch(fetchPosts());
+  prepareData(store) {
+    if (get(store.getState(), 'posts.items.length', 0) === 0) {
+      store.dispatch(fetchPosts());
+    }
   },
 };
 
@@ -23,8 +27,10 @@ const AboutRoute = {
 const PostRoute = {
   path: postPath(),
   component: Post,
-  prepareData: (store, query, params) => {
-    store.dispatch(fetchPost(params.id));
+  prepareData(store, query, params) {
+    if (get(store.getState(), 'post.item.id', null) !== params.id) {
+      store.dispatch(fetchPost(params.id));
+    }
   },
 };
 
