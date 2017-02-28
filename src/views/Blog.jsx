@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { chain } from 'lodash';
 
 import BlogList from 'containers/BlogList';
-import PieChart from 'components/PieChart';
+import PieChart from 'containers/PieChart';
 import Search from 'components/Search';
 import PaginationMenu from 'components/PaginationMenu';
 
@@ -45,14 +44,7 @@ class BlogView extends Component {
   }
 
   render() {
-    const { items, isFetching } = this.props;
-    const chartItems =
-      chain(items)
-        .filter(({ meta }) => Number(meta.likeCount) > 0)
-        .map(({ title, meta }) => {
-          const name = title.split('. ')[1].replace('.', '');
-          return [name, Number(meta.likeCount)];
-        }).value();
+    const { items } = this.props;
 
     return (
       <TwoColumnGrid>
@@ -62,7 +54,7 @@ class BlogView extends Component {
           { this.state.showSearch &&
             <Search items={items} handleSearchToggle={this.handleSearchToggle} /> }
           { this.state.showChart &&
-            <PieChart items={chartItems} handleChartClose={this.handleChartClose} /> }
+            <PieChart handleChartClose={this.handleChartClose} /> }
           <PaginationMenu
             itemIds={items.map(item => item.id)}
             itemsPerPage={POSTS_PER_PAGE}
@@ -75,9 +67,14 @@ class BlogView extends Component {
   }
 }
 
+BlogView.propTypes = {
+  items: PropTypes.array.isRequired,
+  location: PropTypes.object.isRequired,
+};
+
 const stateToProps = (state) => {
-  const { items, isFetching, error } = state.posts;
-  return { items, isFetching, error };
+  const { items } = state.posts;
+  return { items };
 };
 
 export default connect(stateToProps)(BlogView);
