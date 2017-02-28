@@ -1,25 +1,12 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
-import Article from 'components/Article';
-import Loader from 'components/Loader';
+import Post from 'containers/Post';
 import OneColumnGrid from './layouts/OneColumnGrid';
 
-const Post = ({ item, isFetching }) => (
+const PostView = () => (
   <OneColumnGrid>
-    { isFetching && <Loader /> }
-    { item !== null && <Article {...item} /> }
+    <Post />
   </OneColumnGrid>
 );
 
-Post.propTypes = {
-  item: PropTypes.shape(Article.propTypes),
-  isFetching: PropTypes.bool.isRequired,
-};
-
-const stateToProps = (state) => {
-  const { item, isFetching } = state.post;
-  return { item, isFetching };
-};
-
-export default connect(stateToProps)(Post);
+export default PostView;

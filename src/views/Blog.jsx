@@ -1,12 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { sortBy, chain } from 'lodash';
-import request from 'superagent';
+import { chain } from 'lodash';
 
-import BlogList from 'components/BlogList';
+import BlogList from 'containers/BlogList';
 import PieChart from 'components/PieChart';
 import Search from 'components/Search';
-import Loader from 'components/Loader';
 import PaginationMenu from 'components/PaginationMenu';
 
 import TwoColumnGrid from 'views/layouts/TwoColumnGrid';
@@ -15,7 +13,7 @@ import history from 'helpers/history';
 
 import { POSTS_PER_PAGE } from 'constants';
 
-class Blog extends Component {
+class BlogView extends Component {
   constructor(props) {
     super(props);
 
@@ -24,34 +22,14 @@ class Blog extends Component {
       showSearch: true,
     };
 
-    this.handleItemUpdate = this.handleItemUpdate.bind(this);
     this.handleChartClose = this.handleChartClose.bind(this);
     this.handleSearchToggle = this.handleSearchToggle.bind(this);
-  }
-
-  sortItems(items) {
-    return sortBy(items, ({ id }) => Number(id));
-  }
-
-  handleItemUpdate(itemId) {
-    request.patch(
-      `http://localhost:3001/posts/${itemId}/like`,
-      {},
-      (err, res) => {
-        const updatedItem = res.body;
-        const { items } = this.props;
-        const updatedItems = [...items.filter(item => item.id !== updatedItem.id), updatedItem];
-
-        console.log('Like success');
-      },
-    );
   }
 
   handlePageSelect(activePage) {
     const path = activePage === 1 ? '/' : `/?page=${activePage}`;
     history.push(path);
   }
-
 
   handleChartClose() {
     this.setState({ showChart: !this.state.showChart });
@@ -66,23 +44,6 @@ class Blog extends Component {
     return Number(page) || 1;
   }
 
-  fetchActiveItemIds() {
-    const { items } = this.props;
-    const activePage = this.fetchActivePage();
-
-    const firstActiveItem = (activePage - 1) * POSTS_PER_PAGE;
-    const lastActiveItem = firstActiveItem + POSTS_PER_PAGE;
-
-    return items.map(item => item.id).slice(firstActiveItem, lastActiveItem);
-  }
-
-  filterActivePagePosts() {
-    const { items } = this.props;
-    const activeItemIds = this.fetchActiveItemIds();
-
-    return items.filter(item => activeItemIds.includes(item.id));
-  }
-
   render() {
     const { items, isFetching } = this.props;
     const chartItems =
@@ -95,14 +56,7 @@ class Blog extends Component {
 
     return (
       <TwoColumnGrid>
-        <div>
-          { isFetching && <Loader /> }
-          { items.length &&
-            <BlogList
-              items={this.filterActivePagePosts()}
-              handleItemUpdate={this.handleItemUpdate}
-            /> }
-        </div>
+        <BlogList activePage={this.fetchActivePage()} itemsPerPage={POSTS_PER_PAGE} />
 
         <div id="controls">
           { this.state.showSearch &&
@@ -121,14 +75,9 @@ class Blog extends Component {
   }
 }
 
-Blog.propTypes = {
-  items: BlogList.propTypes.items,
-  isFetching: PropTypes.bool.isRequired,
-};
-
 const stateToProps = (state) => {
   const { items, isFetching, error } = state.posts;
   return { items, isFetching, error };
 };
 
-export default connect(stateToProps)(Blog);
+export default connect(stateToProps)(BlogView);
