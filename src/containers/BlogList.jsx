@@ -47,7 +47,7 @@ class BlogListContainer extends Component {
     return (
       <div>
         { isFetching && <Loader /> }
-        { items.length &&
+        { items.length !== 0 &&
           <BlogList
             items={this.filterActivePagePosts()}
             handleItemUpdate={this.handleItemUpdate}
