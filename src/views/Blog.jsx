@@ -4,13 +4,9 @@ import { connect } from 'react-redux';
 import BlogList from 'containers/BlogList';
 import PieChart from 'containers/PieChart';
 import Search from 'components/Search';
-import PaginationMenu from 'components/PaginationMenu';
+import PaginationMenu from 'containers/PaginationMenu';
 
 import TwoColumnGrid from 'views/layouts/TwoColumnGrid';
-
-import history from 'helpers/history';
-
-import { POSTS_PER_PAGE } from 'constants';
 
 class BlogView extends Component {
   constructor(props) {
@@ -25,11 +21,6 @@ class BlogView extends Component {
     this.handleSearchToggle = this.handleSearchToggle.bind(this);
   }
 
-  handlePageSelect(activePage) {
-    const path = activePage === 1 ? '/' : `/?page=${activePage}`;
-    history.push(path);
-  }
-
   handleChartClose() {
     this.setState({ showChart: !this.state.showChart });
   }
@@ -38,13 +29,8 @@ class BlogView extends Component {
     this.setState({ showSearch: !this.state.showSearch });
   }
 
-  fetchActivePage() {
-    const { page } = this.props.location.query;
-    return Number(page) || 1;
-  }
-
   render() {
-    const { items, stats: { count } } = this.props;
+    const { items, location } = this.props;
 
     return (
       <TwoColumnGrid>
@@ -55,12 +41,7 @@ class BlogView extends Component {
             <Search items={items} handleSearchToggle={this.handleSearchToggle} /> }
           { this.state.showChart &&
             <PieChart handleChartClose={this.handleChartClose} /> }
-          <PaginationMenu
-            itemsCount={count}
-            itemsPerPage={POSTS_PER_PAGE}
-            activePage={this.fetchActivePage()}
-            handlePageSelect={this.handlePageSelect}
-          />
+          <PaginationMenu location={location} />
         </div>
       </TwoColumnGrid>
     );
@@ -70,10 +51,6 @@ class BlogView extends Component {
 BlogView.propTypes = {
   items: PropTypes.array.isRequired,
   location: PropTypes.object.isRequired,
-  stats: PropTypes.shape({
-    count: PropTypes.number,
-    likes: PropTypes.object,
-  }).isRequired,
 };
 
 const stateToProps = (state) => {
