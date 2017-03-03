@@ -42,21 +42,23 @@ class About extends Component {
 
     return (
       <OneColumnGrid>
-        {
-          isLoading ?
-            <Loader /> :
-            <Segment className="main">
-              <Image
-                bordered
-                centered
-                shape="circular"
-                size="large"
-                {...avatar}
-              />
-              <Header size="large" content={title} />
-              <div dangerouslySetInnerHTML={{ __html: description }} />
-            </Segment>
-        }
+        <Segment className="main">
+          {
+            isLoading ?
+              <Loader /> :
+              <div>
+                <Image
+                  bordered
+                  centered
+                  shape="circular"
+                  size="large"
+                  {...avatar}
+                />
+                <Header size="large" content={title} />
+                <div dangerouslySetInnerHTML={{ __html: description }} />
+              </div>
+          }
+        </Segment>
       </OneColumnGrid>
     );
   }
