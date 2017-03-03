@@ -13,9 +13,9 @@ class BlogItem extends Component {
   }
 
   handleClick() {
-    const { id, handleItemUpdate } = this.props;
+    const { id, handlePostLike } = this.props;
 
-    handleItemUpdate(id);
+    handlePostLike(id);
   }
 
   render() {
@@ -53,7 +53,7 @@ BlogItem.propTypes = {
     ...MetaInfo.propTypes,
     likeCount: PropTypes.number,
   }).isRequired,
-  handleItemUpdate: PropTypes.func.isRequired,
+  handlePostLike: PropTypes.func.isRequired,
 };
 
 export default BlogItem;
