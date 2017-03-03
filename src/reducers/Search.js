@@ -11,7 +11,7 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case types.CHANGE_SEARCH_TERM:
-      return { ...state, value: payload };
+      return { ...initialState, value: payload };
     case types.SEARCH_REQUEST:
       return { ...state, isLoading: true };
     case types.SEARCH_SUCCESS:

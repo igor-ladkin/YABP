@@ -12,13 +12,11 @@ const stateToProps = (state) => {
 };
 
 const actionsToProps = dispatch => ({
-  handleFocus() {
-    dispatch(changeSearchTerm(''));
+  processTermChange(term) {
+    dispatch(changeSearchTerm(term));
   },
 
-  handleSearchChange(e, value) {
-    dispatch(changeSearchTerm(value));
-
+  processSearch(value) {
     if (value.length >= 3) {
       dispatch(search({ q: value }));
     }

@@ -1,44 +1,66 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Search as SemanticSearch, Input } from 'semantic-ui-react';
+import { debounce } from 'lodash';
 
 import AsideControl from 'layouts/AsideControl';
 
-const Search = (props) => {
-  const {
-    isLoading,
-    results,
-    value,
-    handleSearchToggle,
-    handleFocus,
-    handleSearchChange,
-    handleResultSelect,
-  } = props;
+class Search extends Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <AsideControl handleClose={handleSearchToggle}>
-      <SemanticSearch
-        fluid
-        input={<Input fluid />}
-        minCharacters={3}
-        loading={isLoading}
-        onResultSelect={handleResultSelect}
-        onSearchChange={handleSearchChange}
-        onFocus={handleFocus}
-        results={results}
-        value={value}
-      />
-    </AsideControl>
-  );
-};
+    this.processSearch = debounce(props.processSearch, 400);
 
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
+  }
+
+  componentWillUnmount() {
+    this.props.processTermChange('');
+  }
+
+  handleFocus() {
+    this.props.processTermChange('');
+  }
+
+  handleSearchChange(e, value) {
+    this.props.processTermChange(value);
+    this.processSearch(value);
+  }
+
+  render() {
+    const {
+      isLoading,
+      results,
+      value,
+      handleSearchToggle,
+      handleResultSelect,
+    } = this.props;
+
+    return (
+      <AsideControl handleClose={handleSearchToggle}>
+        <SemanticSearch
+          fluid
+          input={<Input fluid />}
+          minCharacters={3}
+          loading={isLoading}
+          onResultSelect={handleResultSelect}
+          onSearchChange={this.handleSearchChange}
+          onFocus={this.handleFocus}
+          results={results}
+          value={value}
+        />
+      </AsideControl>
+    );
+  }
+}
 
 Search.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   results: PropTypes.array.isRequired,
   value: PropTypes.string.isRequired,
+  processSearch: PropTypes.func.isRequired,
+  processTermChange: PropTypes.func.isRequired,
   handleSearchToggle: PropTypes.func.isRequired,
-  handleFocus: PropTypes.func.isRequired,
-  handleSearchChange: PropTypes.func.isRequired,
   handleResultSelect: PropTypes.func.isRequired,
 };
 
