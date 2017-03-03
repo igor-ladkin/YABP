@@ -20,6 +20,6 @@ export function search({ q }) {
 export function changeSearchTerm(value) {
   return {
     type: types.CHANGE_SEARCH_TERM,
-    payload: { value },
+    payload: value,
   };
 }

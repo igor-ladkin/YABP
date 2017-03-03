@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 
 import BlogList from 'containers/BlogList';
 import PieChart from 'containers/PieChart';
@@ -30,7 +29,7 @@ class BlogView extends Component {
   }
 
   render() {
-    const { items, location } = this.props;
+    const { location } = this.props;
 
     return (
       <TwoColumnGrid>
@@ -38,7 +37,7 @@ class BlogView extends Component {
 
         <div id="controls">
           { this.state.showSearch &&
-            <Search items={items} handleSearchToggle={this.handleSearchToggle} /> }
+            <Search handleSearchToggle={this.handleSearchToggle} /> }
           { this.state.showChart &&
             <PieChart handleChartClose={this.handleChartClose} /> }
           <PaginationMenu location={location} />
@@ -49,13 +48,7 @@ class BlogView extends Component {
 }
 
 BlogView.propTypes = {
-  items: PropTypes.array.isRequired,
   location: PropTypes.object.isRequired,
 };
 
-const stateToProps = (state) => {
-  const { posts: { items }, stats } = state;
-  return { items, stats };
-};
-
-export default connect(stateToProps)(BlogView);
+export default BlogView;

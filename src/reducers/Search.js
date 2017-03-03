@@ -15,7 +15,7 @@ export default function (state = initialState, action) {
     case types.SEARCH_REQUEST:
       return { ...state, isLoading: true };
     case types.SEARCH_SUCCESS:
-      return { ...initialState, results: payload };
+      return { ...state, isLoading: false, results: payload };
     case types.SEARCH_ERROR:
       return { ...initialState };
     default:

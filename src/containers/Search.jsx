@@ -7,8 +7,8 @@ import history from 'helpers/history';
 import { postPath } from 'helpers/routes';
 
 const stateToProps = (state) => {
-  const { isLoading, results } = state.search;
-  return { isLoading, results };
+  const { isLoading, results, value } = state.search;
+  return { isLoading, results, value };
 };
 
 const actionsToProps = dispatch => ({
