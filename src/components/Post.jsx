@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Segment, Item } from 'semantic-ui-react';
 
-const Article = ({ image, title, description }) => (
+const Post = ({ image, title, description }) => (
   <Segment className="main">
     <Item>
       <Item.Image {...image} size="large" floated="right" />
@@ -15,10 +15,10 @@ const Article = ({ image, title, description }) => (
   </Segment>
 );
 
-Article.propTypes = {
+Post.propTypes = {
   image: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
 };
 
-export default Article;
+export default Post;

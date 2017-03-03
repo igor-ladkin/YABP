@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
-import { sortBy, chain } from 'lodash';
-import request from 'superagent';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
-import BlogList from 'components/BlogList';
-import PieChart from 'components/PieChart';
+import BlogList from 'containers/BlogList';
+import PieChart from 'containers/PieChart';
 import Search from 'components/Search';
-import Loader from 'components/Loader';
 import PaginationMenu from 'components/PaginationMenu';
 
 import TwoColumnGrid from 'views/layouts/TwoColumnGrid';
@@ -14,61 +12,23 @@ import history from 'helpers/history';
 
 import { POSTS_PER_PAGE } from 'constants';
 
-class Blog extends Component {
+class BlogView extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      blogItems: [],
       showChart: true,
       showSearch: true,
     };
 
-    this.handleItemUpdate = this.handleItemUpdate.bind(this);
     this.handleChartClose = this.handleChartClose.bind(this);
     this.handleSearchToggle = this.handleSearchToggle.bind(this);
-  }
-
-  componentDidMount() {
-    this.fetchPosts();
-  }
-
-  sortItems(items) {
-    return sortBy(items, ({ id }) => Number(id));
-  }
-
-  fetchPosts() {
-    request.get(
-      'http://localhost:3001',
-      {},
-      (err, res) => {
-        const blogItems = this.sortItems(res.body);
-        this.setState({ blogItems });
-      },
-    );
-  }
-
-  handleItemUpdate(itemId) {
-    request.patch(
-      `http://localhost:3001/posts/${itemId}/like`,
-      {},
-      (err, res) => {
-        const updatedItem = res.body;
-        const items = this.state.blogItems;
-        const updatedItems = [...items.filter(item => item.id !== updatedItem.id), updatedItem];
-
-        this.setState({
-          blogItems: this.sortItems(updatedItems),
-        });
-      },
-    );
   }
 
   handlePageSelect(activePage) {
     const path = activePage === 1 ? '/' : `/?page=${activePage}`;
     history.push(path);
   }
-
 
   handleChartClose() {
     this.setState({ showChart: !this.state.showChart });
@@ -83,46 +43,18 @@ class Blog extends Component {
     return Number(page) || 1;
   }
 
-  fetchActiveItemIds() {
-    const { blogItems } = this.state;
-    const activePage = this.fetchActivePage();
-
-    const firstActiveItem = (activePage - 1) * POSTS_PER_PAGE;
-    const lastActiveItem = firstActiveItem + POSTS_PER_PAGE;
-
-    return blogItems.map(item => item.id).slice(firstActiveItem, lastActiveItem);
-  }
-
-  filterActivePagePosts() {
-    const { blogItems } = this.state;
-    const activeItemIds = this.fetchActiveItemIds();
-
-    return blogItems.filter(item => activeItemIds.includes(item.id));
-  }
-
   render() {
-    const items = this.state.blogItems;
-    const chartItems =
-      chain(items)
-        .filter(({ meta }) => Number(meta.likeCount) > 0)
-        .map(({ title, meta }) => {
-          const name = title.split('. ')[1].replace('.', '');
-          return [name, Number(meta.likeCount)];
-        }).value();
+    const { items } = this.props;
 
     return (
       <TwoColumnGrid>
-        { items.length ?
-          <BlogList
-            items={this.filterActivePagePosts()}
-            handleItemUpdate={this.handleItemUpdate}
-          /> : <Loader /> }
+        <BlogList activePage={this.fetchActivePage()} itemsPerPage={POSTS_PER_PAGE} />
 
         <div id="controls">
           { this.state.showSearch &&
             <Search items={items} handleSearchToggle={this.handleSearchToggle} /> }
           { this.state.showChart &&
-            <PieChart items={chartItems} handleChartClose={this.handleChartClose} /> }
+            <PieChart handleChartClose={this.handleChartClose} /> }
           <PaginationMenu
             itemIds={items.map(item => item.id)}
             itemsPerPage={POSTS_PER_PAGE}
@@ -135,4 +67,14 @@ class Blog extends Component {
   }
 }
 
-export default Blog;
+BlogView.propTypes = {
+  items: PropTypes.array.isRequired,
+  location: PropTypes.object.isRequired,
+};
+
+const stateToProps = (state) => {
+  const { items } = state.posts;
+  return { items };
+};
+
+export default connect(stateToProps)(BlogView);
