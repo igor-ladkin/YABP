@@ -26,21 +26,6 @@ class BlogListContainer extends Component {
     );
   }
 
-  fetchActiveItemIds() {
-    const { items, itemsPerPage, activePage } = this.props;
-    const firstActiveItem = (activePage - 1) * itemsPerPage;
-    const lastActiveItem = firstActiveItem + itemsPerPage;
-
-    return items.map(item => item.id).slice(firstActiveItem, lastActiveItem);
-  }
-
-  filterActivePagePosts() {
-    const { items } = this.props;
-    const activeItemIds = this.fetchActiveItemIds();
-
-    return items.filter(item => activeItemIds.includes(item.id));
-  }
-
   render() {
     const { items, isFetching } = this.props;
 
@@ -49,7 +34,7 @@ class BlogListContainer extends Component {
         { isFetching && <Loader /> }
         { items.length !== 0 &&
           <BlogList
-            items={this.filterActivePagePosts()}
+            items={items}
             handleItemUpdate={this.handleItemUpdate}
           /> }
       </div>
@@ -60,8 +45,6 @@ class BlogListContainer extends Component {
 BlogListContainer.propTypes = {
   items: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  activePage: PropTypes.number.isRequired,
-  itemsPerPage: PropTypes.number.isRequired,
 };
 
 const stateToProps = (state) => {

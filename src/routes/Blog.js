@@ -12,10 +12,8 @@ import { fetchPost } from 'actions/Post';
 const Index = {
   path: '/',
   component: Blog,
-  prepareData(store) {
-    if (get(store.getState(), 'posts.items.length', 0) === 0) {
-      store.dispatch(fetchPosts());
-    }
+  prepareData(store, query) {
+    store.dispatch(fetchPosts({ page: query.page }));
   },
 };
 

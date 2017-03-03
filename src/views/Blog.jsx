@@ -44,7 +44,7 @@ class BlogView extends Component {
   }
 
   render() {
-    const { items } = this.props;
+    const { items, stats: { count, likes } } = this.props;
 
     return (
       <TwoColumnGrid>
@@ -56,7 +56,7 @@ class BlogView extends Component {
           { this.state.showChart &&
             <PieChart handleChartClose={this.handleChartClose} /> }
           <PaginationMenu
-            itemIds={items.map(item => item.id)}
+            itemsCount={count}
             itemsPerPage={POSTS_PER_PAGE}
             activePage={this.fetchActivePage()}
             handlePageSelect={this.handlePageSelect}
@@ -70,11 +70,15 @@ class BlogView extends Component {
 BlogView.propTypes = {
   items: PropTypes.array.isRequired,
   location: PropTypes.object.isRequired,
+  stats: PropTypes.shape({
+    count: PropTypes.number,
+    likes: PropTypes.object,
+  }).isRequired,
 };
 
 const stateToProps = (state) => {
-  const { items } = state.posts;
-  return { items };
+  const { posts: { items }, stats } = state;
+  return { items, stats };
 };
 
 export default connect(stateToProps)(BlogView);
