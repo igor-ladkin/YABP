@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import BlogList from 'containers/BlogList';
 import PieChart from 'containers/PieChart';
-import Search from 'components/Search';
+import Search from 'containers/Search';
 import PaginationMenu from 'containers/PaginationMenu';
 
 import TwoColumnGrid from 'views/layouts/TwoColumnGrid';

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Search as SemanticSearch, Input } from 'semantic-ui-react';
-import { filter, escapeRegExp, pick, join, at } from 'lodash';
 
 import history from 'helpers/history';
 import { postPath } from 'helpers/routes';
@@ -14,42 +13,25 @@ class Search extends Component {
     this.resetComponent = this.resetComponent.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
 
-    this.state = {
-      isLoading: false,
-      results: [],
-      value: '',
-    };
+    this.state = { value: '' };
   }
 
   resetComponent() {
-    this.setState({ isLoading: false, results: [], value: '' });
+    this.setState({ value: '' });
   }
 
   handleSearchChange(e, value) {
-    this.setState({ isLoading: true, value });
+    const { search } = this.props;
+    this.setState({ value });
 
-    setTimeout(() => {
-      if (this.state.value.length < 1) return this.resetComponent();
-
-      const re = new RegExp(escapeRegExp(this.state.value), 'i');
-      const indexText = result => join(at(result, ['title', 'note']), ' ');
-      const isMatch = result => re.test(indexText(result));
-      const results =
-        filter(this.props.items, isMatch)
-          .map(item => pick(item, ['id', 'image', 'title']));
-
-      this.setState({
-        isLoading: false,
-        results,
-      });
-
-      return true;
-    }, 500);
+    if (value.length >= 3) {
+      search({ q: value });
+    }
   }
 
   render() {
-    const { isLoading, value, results } = this.state;
-    const { handleSearchToggle } = this.props;
+    const { value } = this.state;
+    const { handleSearchToggle, isLoading, results } = this.props;
 
     return (
       <AsideControl handleClose={handleSearchToggle}>
