@@ -1,10 +1,8 @@
-import { throttle } from 'lodash';
-
 import * as types from 'constants/actionTypes/Search';
 import { searchPath } from 'helpers/routes';
 import { API_CALL } from 'middleware/API';
 
-function search({ q }) {
+export function search({ q }) {
   return {
     [API_CALL]: {
       endpoint: `${searchPath()}`,
@@ -25,6 +23,3 @@ export function changeSearchTerm(value) {
     payload: { value },
   };
 }
-
-const throttledSearch = throttle(search, 3000);
-export { throttledSearch as search };
