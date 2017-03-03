@@ -44,11 +44,11 @@ class BlogView extends Component {
   }
 
   render() {
-    const { items, stats: { count, likes } } = this.props;
+    const { items, stats: { count } } = this.props;
 
     return (
       <TwoColumnGrid>
-        <BlogList activePage={this.fetchActivePage()} itemsPerPage={POSTS_PER_PAGE} />
+        <BlogList />
 
         <div id="controls">
           { this.state.showSearch &&

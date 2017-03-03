@@ -1,14 +1,18 @@
 import React, { PropTypes } from 'react';
-import { map, pick } from 'lodash';
+import { map, pick, isEmpty } from 'lodash';
 import { Segment, Item } from 'semantic-ui-react';
 
 import BlogItem from './BlogItem';
+import Loader from './Loader';
 
-const BlogList = ({ items, handleItemUpdate }) => (
+const BlogList = ({ items, handleItemUpdate, isFetching }) => (
   <Segment className="main">
-    <Item.Group divided>
-      {map(items, item => <BlogItem key={item.id} handleItemUpdate={handleItemUpdate} {...item} />)}
-    </Item.Group>
+    { isFetching && <Loader /> }
+    { !isEmpty(items) &&
+      <Item.Group divided>
+        { map(items,
+            item => <BlogItem key={item.id} handleItemUpdate={handleItemUpdate} {...item} />) }
+      </Item.Group> }
   </Segment>
 );
 
@@ -17,6 +21,11 @@ BlogList.propTypes = {
     pick(BlogItem.propTypes, ['id', 'image', 'title', 'note', 'meta']),
   )).isRequired,
   handleItemUpdate: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool,
+};
+
+BlogList.defaultProps = {
+  isFetching: false,
 };
 
 export default BlogList;
