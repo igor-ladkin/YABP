@@ -1,11 +1,10 @@
 import * as types from 'constants/actionTypes/Search';
-import { searchPath } from 'helpers/routes';
 import { API_CALL } from 'middleware/API';
 
 export function search({ q }) {
   return {
     [API_CALL]: {
-      endpoint: `${searchPath()}`,
+      endpoint: '/search',
       method: 'GET',
       query: { q },
       types: [
