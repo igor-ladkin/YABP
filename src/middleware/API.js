@@ -29,6 +29,7 @@ function nextAction(action, data) {
   return { ...action, ...data, [API_CALL]: undefined };
 }
 
+/* eslint-disable arrow-parens, no-unused-vars */
 export default store => next => action => {
   if (!action[API_CALL]) return next(action);
 
