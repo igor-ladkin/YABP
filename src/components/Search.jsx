@@ -1,9 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Search as SemanticSearch, Input } from 'semantic-ui-react';
-import { filter, escapeRegExp, pick, join, at } from 'lodash';
-
-import history from 'helpers/history';
-import { postPath } from 'helpers/routes';
+import { debounce } from 'lodash';
 
 import AsideControl from 'layouts/AsideControl';
 
@@ -11,45 +8,33 @@ class Search extends Component {
   constructor(props) {
     super(props);
 
-    this.resetComponent = this.resetComponent.bind(this);
-    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.processSearch = debounce(props.processSearch, 400);
 
-    this.state = {
-      isLoading: false,
-      results: [],
-      value: '',
-    };
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
   }
 
-  resetComponent() {
-    this.setState({ isLoading: false, results: [], value: '' });
+  componentWillUnmount() {
+    this.props.processTermChange('');
+  }
+
+  handleFocus() {
+    this.props.processTermChange('');
   }
 
   handleSearchChange(e, value) {
-    this.setState({ isLoading: true, value });
-
-    setTimeout(() => {
-      if (this.state.value.length < 1) return this.resetComponent();
-
-      const re = new RegExp(escapeRegExp(this.state.value), 'i');
-      const indexText = result => join(at(result, ['title', 'note']), ' ');
-      const isMatch = result => re.test(indexText(result));
-      const results =
-        filter(this.props.items, isMatch)
-          .map(item => pick(item, ['id', 'image', 'title']));
-
-      this.setState({
-        isLoading: false,
-        results,
-      });
-
-      return true;
-    }, 500);
+    this.props.processTermChange(value);
+    this.processSearch(value);
   }
 
   render() {
-    const { isLoading, value, results } = this.state;
-    const { handleSearchToggle } = this.props;
+    const {
+      isLoading,
+      results,
+      value,
+      handleSearchToggle,
+      handleResultSelect,
+    } = this.props;
 
     return (
       <AsideControl handleClose={handleSearchToggle}>
@@ -58,9 +43,9 @@ class Search extends Component {
           input={<Input fluid />}
           minCharacters={3}
           loading={isLoading}
-          onResultSelect={(e, result) => history.push(postPath(result.id))}
+          onResultSelect={handleResultSelect}
           onSearchChange={this.handleSearchChange}
-          onFocus={this.resetComponent}
+          onFocus={this.handleFocus}
           results={results}
           value={value}
         />
@@ -70,12 +55,13 @@ class Search extends Component {
 }
 
 Search.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object),
+  isLoading: PropTypes.bool.isRequired,
+  results: PropTypes.array.isRequired,
+  value: PropTypes.string.isRequired,
+  processSearch: PropTypes.func.isRequired,
+  processTermChange: PropTypes.func.isRequired,
   handleSearchToggle: PropTypes.func.isRequired,
-};
-
-Search.defaultProps = {
-  items: [],
+  handleResultSelect: PropTypes.func.isRequired,
 };
 
 export default Search;

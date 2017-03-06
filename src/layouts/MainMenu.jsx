@@ -4,7 +4,7 @@ import { Menu, Icon } from 'semantic-ui-react';
 import { Link } from 'components/common';
 
 import history from 'helpers/history';
-import { aboutPath } from 'helpers/routes';
+import { aboutPath, rootPath } from 'helpers/routes';
 
 const MainMenu = () => {
   const handleGoBackClick = () => history.goBack();
@@ -18,7 +18,7 @@ const MainMenu = () => {
         header
         active
         as={Link}
-        to="/"
+        to={rootPath()}
         content="Yet Another Blogging Platform"
       />
       <Menu.Item
