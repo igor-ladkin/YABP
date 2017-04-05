@@ -8,8 +8,11 @@
     <title>React App</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><%- content %></div>
     <div id="devtools"></div>
+    <script>
+      window.__INITIAL_STATE__ = <%- initialState %>
+    </script>
     <script src="/assets/bundle.js"></script>
   </body>
 </html>

@@ -1,5 +1,3 @@
-import { get, isNil } from 'lodash';
-
 import MainLayout from 'layouts/MainLayout';
 import Blog from 'views/Blog';
 import Post from 'views/Post';
@@ -14,7 +12,7 @@ const Index = {
   path: '/',
   component: Blog,
   prepareData(store, query) {
-    store.dispatch(fetchPosts({ page: query.page }));
+    return store.dispatch(fetchPosts({ page: query.page }));
   },
 };
 
@@ -22,9 +20,7 @@ const AboutRoute = {
   path: aboutPath(),
   component: About,
   prepareData(store) {
-    if (isNil(get(store.getState(), 'about.info', null))) {
-      store.dispatch(fetchAbout());
-    }
+    return store.dispatch(fetchAbout());
   },
 };
 
@@ -32,9 +28,7 @@ const PostRoute = {
   path: postPath(),
   component: Post,
   prepareData(store, query, params) {
-    if (get(store.getState(), 'post.item.id', null) !== params.id) {
-      store.dispatch(fetchPost(params.id));
-    }
+    return store.dispatch(fetchPost(params.id));
   },
 };
 
