@@ -19,6 +19,7 @@ module.exports = {
   "rules": {
     "class-methods-use-this": 1,
     "import/prefer-default-export": 0,
+    "no-underscore-dangle": 0,
     "react/jsx-uses-vars": 2,
     "react/jsx-uses-react": 2,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],

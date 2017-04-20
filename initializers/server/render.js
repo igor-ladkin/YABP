@@ -4,10 +4,12 @@ import { Provider } from 'react-redux';
 import { match, RouterContext } from 'react-router';
 import { compact } from 'lodash';
 
-import store from 'store';
+import createStore from 'store';
 import routes from 'routes';
 
 import prepareData from 'helpers/prepareData';
+
+const store = createStore();
 
 export default (req, res) => {
   match(
