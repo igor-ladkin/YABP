@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
 
 import BlogList from 'containers/BlogList';
-// import PieChart from 'containers/PieChart';
+import PieChart from 'containers/PieChart';
 import Search from 'containers/Search';
 import PaginationMenu from 'containers/PaginationMenu';
 
@@ -41,8 +41,8 @@ class BlogView extends Component {
           <div id="controls">
             { this.state.showSearch &&
               <Search handleSearchToggle={this.handleSearchToggle} /> }
-            { /* this.state.showChart &&
-              <PieChart handleChartClose={this.handleChartClose} /> */ }
+            { this.state.showChart &&
+              <PieChart handleChartClose={this.handleChartClose} /> }
             { <PaginationMenu location={location} /> }
           </div>
         </TwoColumnGrid>
