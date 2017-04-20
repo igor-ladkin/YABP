@@ -3,6 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { match, RouterContext } from 'react-router';
 import { compact } from 'lodash';
+import Helmet from 'react-helmet';
 
 import createStore from 'store';
 import routes from 'routes';
@@ -27,8 +28,10 @@ export default (req, res) => {
             ),
           );
 
+          const head = Helmet.rewind();
+
           res.status(200);
-          res.render('index', { initialState, content });
+          res.render('index', { initialState, content, head });
         })
     ),
   );
