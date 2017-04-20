@@ -16,7 +16,12 @@ const Post = ({ item, isFetching }) => (
           <div dangerouslySetInnerHTML={{ __html: item.description }} />
         </Item.Description>
 
-        <Helmet title={item.title} />
+        <Helmet
+          title={item.title}
+          meta={[
+            { name: 'keywords', content: item.title },
+          ]}
+        />
       </Item> }
   </Segment>
 );

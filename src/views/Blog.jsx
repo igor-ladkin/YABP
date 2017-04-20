@@ -47,7 +47,13 @@ class BlogView extends Component {
           </div>
         </TwoColumnGrid>
 
-        <Helmet title="Blog about superheroes and more" />
+        <Helmet
+          title="Blog about superheroes and more"
+          meta={[
+            { name: 'description', content: 'Best blog ever.' },
+            { name: 'keywords', content: 'Such blog, super wow.' },
+          ]}
+        />
       </div>
     );
   }
