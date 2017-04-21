@@ -1,7 +1,7 @@
 import request from 'superagent';
 import { stringify } from 'qs';
 import { pick } from 'lodash';
-import { API_ROOT } from 'constants';
+import { API_ROOT } from 'constants/index';
 
 export const API_CALL = 'API_CALL';
 

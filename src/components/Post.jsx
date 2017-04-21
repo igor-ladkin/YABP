@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Segment, Item } from 'semantic-ui-react';
 import { isNil } from 'lodash';
+import Helmet from 'react-helmet';
 
 import Loader from './Loader';
 
@@ -14,6 +15,13 @@ const Post = ({ item, isFetching }) => (
         <Item.Description>
           <div dangerouslySetInnerHTML={{ __html: item.description }} />
         </Item.Description>
+
+        <Helmet
+          title={item.title}
+          meta={[
+            { name: 'keywords', content: item.title },
+          ]}
+        />
       </Item> }
   </Segment>
 );

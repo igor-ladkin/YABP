@@ -1,17 +1,20 @@
 import React, { Component, PropTypes } from 'react';
-import c3 from 'c3';
 
 import AsideControl from 'layouts/AsideControl';
 
 class PieChart extends Component {
   componentDidMount() {
-    this.chart = c3.generate({
-      bindto: this.chartNode,
-      data: {
-        type: 'pie',
-        columns: this.props.items,
-      },
-    });
+    if (__CLIENT__) {
+      const c3 = require('c3');
+
+      this.chart = c3.generate({
+        bindto: this.chartNode,
+        data: {
+          type: 'pie',
+          columns: this.props.items,
+        },
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {

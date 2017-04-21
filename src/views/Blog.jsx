@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
+import Helmet from 'react-helmet';
+
 import BlogList from 'containers/BlogList';
 import PieChart from 'containers/PieChart';
 import Search from 'containers/Search';
@@ -32,17 +34,27 @@ class BlogView extends Component {
     const { location } = this.props;
 
     return (
-      <TwoColumnGrid>
-        <BlogList />
+      <div>
+        <TwoColumnGrid>
+          <BlogList />
 
-        <div id="controls">
-          { this.state.showSearch &&
-            <Search handleSearchToggle={this.handleSearchToggle} /> }
-          { this.state.showChart &&
-            <PieChart handleChartClose={this.handleChartClose} /> }
-          <PaginationMenu location={location} />
-        </div>
-      </TwoColumnGrid>
+          <div id="controls">
+            { this.state.showSearch &&
+              <Search handleSearchToggle={this.handleSearchToggle} /> }
+            { this.state.showChart &&
+              <PieChart handleChartClose={this.handleChartClose} /> }
+            { <PaginationMenu location={location} /> }
+          </div>
+        </TwoColumnGrid>
+
+        <Helmet
+          title="Blog about superheroes and more"
+          meta={[
+            { name: 'description', content: 'Best blog ever.' },
+            { name: 'keywords', content: 'Such blog, super wow.' },
+          ]}
+        />
+      </div>
     );
   }
 }

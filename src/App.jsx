@@ -7,9 +7,11 @@ import history from 'helpers/history';
 import prepareData from 'helpers/prepareData';
 
 import routes from 'routes';
-import store from 'store';
+import createStore from 'store';
 
 import DevTools from 'containers/DevTools';
+
+const store = createStore(window.__INITIAL_STATE__);
 
 function historyCallback(location) {
   match({ location, routes }, (error, redirect, state) => {
@@ -33,6 +35,9 @@ const App = () => (
 ReactDOM.render(
   <DevTools store={store} />,
   document.getElementById('devtools'),
+  () => {
+    delete window.__INITIAL_STATE__;
+  },
 );
 
 export default App;

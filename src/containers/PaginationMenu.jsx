@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import PaginationMenu from 'components/PaginationMenu';
-import { POSTS_PER_PAGE } from 'constants';
+import { POSTS_PER_PAGE } from 'constants/index';
 
 import history from 'helpers/history';
 
