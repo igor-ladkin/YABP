@@ -9,6 +9,16 @@ import PaginationMenu from 'containers/PaginationMenu';
 
 import TwoColumnGrid from 'views/layouts/TwoColumnGrid';
 
+const Headers = () => (
+  <Helmet
+    title="Blog about superheroes and more"
+    meta={[
+      { name: 'description', content: 'Best blog ever.' },
+      { name: 'keywords', content: 'Such blog, super wow.' },
+    ]}
+  />
+);
+
 class BlogView extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +44,9 @@ class BlogView extends Component {
     const { location } = this.props;
 
     return (
-      <div>
+      <div className="ui grid">
+        <Headers />
+
         <TwoColumnGrid>
           <BlogList />
 
@@ -46,14 +58,6 @@ class BlogView extends Component {
             { <PaginationMenu location={location} /> }
           </div>
         </TwoColumnGrid>
-
-        <Helmet
-          title="Blog about superheroes and more"
-          meta={[
-            { name: 'description', content: 'Best blog ever.' },
-            { name: 'keywords', content: 'Such blog, super wow.' },
-          ]}
-        />
       </div>
     );
   }
