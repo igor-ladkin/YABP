@@ -8,6 +8,10 @@ body {
   font-family: 'Permanent Marker', cursive;
 }
 
+#content {
+  margin-top: 40px;
+}
+
 #controls {
   position: fixed;
 }

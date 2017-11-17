@@ -44,7 +44,7 @@ class BlogView extends Component {
     const { location } = this.props;
 
     return (
-      <div className="ui grid">
+      <div id="content">
         <Headers />
 
         <TwoColumnGrid>
